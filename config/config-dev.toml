@@ -1,0 +1,21 @@
+# HTTP Server
+[server]
+	Address     = ":80"
+	ServerAgent = "bazinga"
+	LogPath     = "log/bazinga/server"
+
+# Logger.
+[logger]
+    Path        = "log/bazinga"
+    Level       = "DEV"
+    Stdout      = true
+
+# Database.
+[database]
+    link  = "mysql:root:root@tcp(127.0.0.1:3306)/test"
+    debug = true
+    # Database logger.
+    [database.logger]
+        Path   = "log/bazinga/sql"
+        Level  = "all"
+        Stdout = true
