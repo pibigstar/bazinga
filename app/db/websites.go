@@ -5,13 +5,13 @@ var (
 )
 
 type Websites struct {
-	Id          string `orm:"id"`
-	Name        string `orm:"name"`
-	Url         string `org:"url"`
-	Category    int    `org:"category"`
-	Order       int    `org:"order"`
-	Display     bool   `org:"display"`
-	Description string `org:"description"`
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	Url         string `json:"url"`
+	Category    int    `json:"category"`
+	Order       int    `json:"order"`
+	Display     bool   `json:"display"`
+	Description string `json:"description"`
 }
 
 func (*Websites) name() string {
@@ -19,6 +19,6 @@ func (*Websites) name() string {
 }
 
 func (w *Websites) List() (results []*Websites, err error) {
-	err = db.From(w.name()).Where("id = ?", 1).Structs(&results)
+	err = db.From(w.name()).Where("display = ?", false).Structs(&results)
 	return results, err
 }

@@ -7,5 +7,5 @@ import (
 
 // List all websites
 func List(r *ghttp.Request) {
-	r.Response.Writeln(db.MWebsites.List())
+	r.Response.Writeln(db.MCategory.ListWebsites())
 }
