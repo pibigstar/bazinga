@@ -1,8 +1,10 @@
 # HTTP Server
 [server]
-	Address     = ":80"
-	ServerAgent = "bazinga"
-	LogPath     = "log/bazinga/server"
+	Address         = ":80"
+	ServerAgent     = "bazinga"
+	LogPath         = "log/bazinga/server"
+	DumpRouterMap   = true
+	PProfEnabled    = true
 
 # Logger.
 [logger]

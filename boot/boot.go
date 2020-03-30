@@ -7,7 +7,7 @@ import (
 
 func init() {
 	setConfig()
-	startPProf()
+	//startPProf()
 }
 
 func setConfig() {
