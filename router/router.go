@@ -8,7 +8,13 @@ import (
 
 func init() {
 	s := g.Server()
+
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.ALL("/websites", websites.List)
+		group.ALL("/like", websites.LikeIt)
+	})
+
+	s.Group("/admin", func(group *ghttp.RouterGroup) {
+		group.Middleware()
 	})
 }

@@ -1,18 +1,16 @@
 package db
 
-import "github.com/gogf/gf/os/glog"
-
 var (
 	MCategory Category
 )
 
 type Category struct {
-	Id          int         `json:"id"`
-	Name        string      `json:"name"`
-	Order       int         `json:"order"`
-	Display     bool        `json:"display"`
-	Description string      `json:"description"`
-	Websites    []*Websites `json:"websites"`
+	Id          int        `json:"id"`
+	Name        string     `json:"name"`
+	Order       int        `json:"order"`
+	Display     bool       `json:"display"`
+	Description string     `json:"description"`
+	Websites    []*Website `json:"websites"`
 }
 
 func (*Category) name() string {
@@ -26,13 +24,22 @@ func (c *Category) List() (results []*Category, err error) {
 
 func (c *Category) ListWebsites() (results []*Category, err error) {
 	err = db.From(c.name()).Where("display = ?", true).Structs(&results)
-
+	var ids []int
 	for _, result := range results {
-		err = db.From(MWebsites.name()).Where("display = ? AND category = ?", true, result.Id).Structs(&result.Websites)
-		if err != nil {
-			glog.Printf("scan err: %v", err)
-			return nil, err
+		ids = append(ids, result.Id)
+	}
+
+	var websites []*Website
+	err = db.From(MWebsite.name()).
+		Where("display = ? AND category in (?)", true, ids).
+		Structs(&websites)
+	for _, result := range results {
+		for _, website := range websites {
+			if result.Id == website.Category {
+				result.Websites = append(result.Websites, website)
+			}
 		}
 	}
+
 	return results, err
 }
