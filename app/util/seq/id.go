@@ -22,14 +22,19 @@ func init() {
 	}
 }
 
-func NextNumID() uint64 {
+func GenNumID() uint64 {
 	id, _ := sf.NextID()
 	return id
 }
 
+func GenID() string {
+	id, _ := sf.NextID()
+	return strconv.FormatUint(id, 10)
+}
+
 const IdPrefixKey = "p-id"
 
-func GenId(ctx context.Context) string {
+func GenIdByCtx(ctx context.Context) string {
 	nextId, err := sf.NextID()
 	if err != nil {
 		return err.Error()

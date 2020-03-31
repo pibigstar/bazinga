@@ -19,8 +19,7 @@ func LikeIt(r *ghttp.Request) {
 	// 检查IP是否已点过
 
 	// 检查秘钥是否已存在
-
-	err := db.MWebsite.LikeIt(r.GetString("id"))
+	_, err := db.MWebsite.LikeIt(r.GetString("id"))
 	if err != nil {
 		resp.Error(r, err.Error())
 	}

@@ -1,6 +1,11 @@
 package db
 
-import "time"
+import (
+	"fmt"
+	"github.com/gogf/gf/frame/g"
+	"github.com/pibigstar/bazinga/app/util/seq"
+	"time"
+)
 
 var (
 	MWebsite Website
@@ -28,9 +33,20 @@ func (w *Website) List() (results []*Website, err error) {
 	return results, err
 }
 
-func (w *Website) LikeIt(id string) error {
+func (w *Website) LikeIt(id string) (string, error) {
 	_, err := db.From(w.name()).
 		Where("id = ?", id).
 		Update("score=score+1")
-	return err
+	if err != nil {
+		return "", err
+	}
+
+	// 生成个uid
+	uid := seq.GenID()
+	fmt.Println("uid", uid)
+	_, err = g.Redis().Do("SET", uid, "ex", time.Hour*24*3)
+	if err != nil {
+		return "", err
+	}
+	return uid, err
 }

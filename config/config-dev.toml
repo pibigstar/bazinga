@@ -21,3 +21,7 @@
         Path   = "log/bazinga/sql"
         Level  = "all"
         Stdout = true
+
+# Redis
+[redis]
+    default = "106.54.212.69:6379,1,123456"
