@@ -6,6 +6,11 @@
 	DumpRouterMap   = true
 	PProfEnabled    = true
 
+[trace]
+    enable = true
+    addr = "127.0.0.1:6831"
+    filter = ["ico", "jpg"]
+
 # Logger.
 [logger]
     Path        = "log/bazinga"
@@ -14,7 +19,7 @@
 
 # Database.
 [database]
-    link  = "mysql:root:root@tcp(127.0.0.1:3306)/test"
+    link  = "mysql:root:123456@tcp(127.0.0.1:3306)/test"
     debug = true
     # Database logger.
     [database.logger]

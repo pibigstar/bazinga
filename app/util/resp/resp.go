@@ -89,6 +89,7 @@ func Error(r *ghttp.Request, msg string) {
 		},
 	}
 	req.Write()
+	r.Exit()
 }
 
 func ErrorWithCode(r *ghttp.Request, code int, msg string) {
