@@ -19,9 +19,10 @@ type Website struct {
 	Order       int       `json:"order"`
 	Score       int       `json:"score"`
 	Display     bool      `json:"display"`
-	CreateBy    string    `json:"create_by,omitempty"`
+	CreateBy    int       `json:"create_by,omitempty"`
+	CreateName  string    `json:"create_name,omitempty"`
+	Description string    `json:"description,omitempty"`
 	CreateAt    time.Time `json:"create_at"`
-	Description string    `json:"description"`
 }
 
 func (*Website) name() string {

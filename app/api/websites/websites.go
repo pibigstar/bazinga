@@ -8,7 +8,7 @@ import (
 
 // List all websites
 func List(r *ghttp.Request) {
-	results, err := db.MCategory.ListWebsites()
+	results, err := db.MWebsiteCategory.ListWebsites()
 	if err != nil {
 		resp.Error(r, err.Error())
 	}

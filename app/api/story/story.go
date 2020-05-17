@@ -7,7 +7,7 @@ import (
 )
 
 func Add(r *ghttp.Request) {
-	results, err := db.MCategory.ListWebsites()
+	results, err := db.MWebsiteCategory.ListWebsites()
 	if err != nil {
 		resp.Error(r, err.Error())
 	}
@@ -15,7 +15,7 @@ func Add(r *ghttp.Request) {
 }
 
 func Delete(r *ghttp.Request) {
-	results, err := db.MCategory.ListWebsites()
+	results, err := db.MWebsiteCategory.ListWebsites()
 	if err != nil {
 		resp.Error(r, err.Error())
 	}
@@ -23,7 +23,7 @@ func Delete(r *ghttp.Request) {
 }
 
 func Get(r *ghttp.Request) {
-	results, err := db.MCategory.ListWebsites()
+	results, err := db.MWebsiteCategory.ListWebsites()
 	if err != nil {
 		resp.Error(r, err.Error())
 	}
@@ -31,7 +31,7 @@ func Get(r *ghttp.Request) {
 }
 
 func RandGet(r *ghttp.Request) {
-	results, err := db.MCategory.ListWebsites()
+	results, err := db.MWebsiteCategory.ListWebsites()
 	if err != nil {
 		resp.Error(r, err.Error())
 	}
@@ -39,7 +39,7 @@ func RandGet(r *ghttp.Request) {
 }
 
 func Send(r *ghttp.Request) {
-	results, err := db.MCategory.ListWebsites()
+	results, err := db.MWebsiteCategory.ListWebsites()
 	if err != nil {
 		resp.Error(r, err.Error())
 	}

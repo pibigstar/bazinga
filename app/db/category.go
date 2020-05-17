@@ -1,10 +1,10 @@
 package db
 
 var (
-	MCategory Category
+	MWebsiteCategory WebsiteCategory
 )
 
-type Category struct {
+type WebsiteCategory struct {
 	Id          int        `json:"id"`
 	Name        string     `json:"name"`
 	Order       int        `json:"order"`
@@ -13,16 +13,16 @@ type Category struct {
 	Websites    []*Website `json:"websites"`
 }
 
-func (*Category) name() string {
-	return "category"
+func (*WebsiteCategory) name() string {
+	return "website_category"
 }
 
-func (c *Category) List() (results []*Category, err error) {
+func (c *WebsiteCategory) List() (results []*WebsiteCategory, err error) {
 	err = db.From(c.name()).Where("display = ?", true).Structs(&results)
 	return results, err
 }
 
-func (c *Category) ListWebsites() (results []*Category, err error) {
+func (c *WebsiteCategory) ListWebsites() (results []*WebsiteCategory, err error) {
 	err = db.From(c.name()).Where("display = ?", true).Structs(&results)
 	var ids []int
 	for _, result := range results {
