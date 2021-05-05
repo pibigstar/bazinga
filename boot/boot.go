@@ -8,12 +8,14 @@ import (
 func init() {
 	setConfig()
 	//startPProf()
+
+	go StartGrpc()
 }
 
 func setConfig() {
 	if runtime.GOOS == "linux" {
 		g.Cfg().SetFileName("config/config-prod.toml")
-	}else  {
+	} else {
 		g.Cfg().SetFileName("config/config-dev.toml")
 	}
 }

@@ -3,7 +3,7 @@ package websites
 import (
 	"github.com/gogf/gf/net/ghttp"
 	"github.com/pibigstar/bazinga/app/db"
-	"github.com/pibigstar/bazinga/app/util/resp"
+	"github.com/pibigstar/bazinga/internal/resp"
 )
 
 // List all websites

@@ -53,7 +53,6 @@ func Trace() func(r *ghttp.Request) {
 		// 设置context
 		if sp, ok := span.Context().(jaeger.SpanContext); ok {
 			// 这里设置一个root span，本次请求的其他span挂在root span下面
-
 			r.SetCtxVar("root_span", span)
 			r.Response.Writer.Header().Set("x-request-id", sp.TraceID().String())
 			r.Response.Header().Set("x-trace-id", sp.TraceID().String())

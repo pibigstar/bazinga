@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option go_package = "app/grpc/proto/pb;pb";
+
+
+service BazingaService {
+  rpc RandomStory(RandomStoryReq) returns (RandomStoryResp);
+}
+
+message RandomStoryReq {
+  string keywords = 1;
+}
+
+message RandomStoryResp {
+  string content = 1;
+}

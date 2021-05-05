@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 	"github.com/gogf/gf/frame/g"
-	"github.com/pibigstar/bazinga/app/util/seq"
+	"github.com/pibigstar/bazinga/internal/util/seq"
 	"time"
 )
 
@@ -30,12 +30,12 @@ func (*Website) name() string {
 }
 
 func (w *Website) List() (results []*Website, err error) {
-	err = db.From(w.name()).Where("display = ?", false).Structs(&results)
+	err = db.Table(w.name()).Where("display = ?", false).Structs(&results)
 	return results, err
 }
 
 func (w *Website) LikeIt(id string) (string, error) {
-	_, err := db.From(w.name()).
+	_, err := db.Table(w.name()).
 		Where("id = ?", id).
 		Update("score=score+1")
 	if err != nil {

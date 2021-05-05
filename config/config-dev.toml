@@ -6,6 +6,11 @@
 	DumpRouterMap   = true
 	PProfEnabled    = true
 
+
+[grpc]
+    host = "127.0.0.1"
+    port = 9000
+
 [trace]
     enable = true
     addr = "127.0.0.1:6831"

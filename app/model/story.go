@@ -1,8 +1,7 @@
 package model
 
 
-type (
-	AddStoryReq struct {
-		Content string `json:"content"`
-	}
-)
+type AddStoryReq struct {
+	Content string `json:"content"`
+}
+
