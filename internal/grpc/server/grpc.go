@@ -1,4 +1,4 @@
-package boot
+package server
 
 import (
 	"context"
@@ -7,6 +7,7 @@ import (
 	"github.com/golang/glog"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	baziga "github.com/pibigstar/bazinga/app/grpc"
 	"github.com/pibigstar/bazinga/app/grpc/proto/pb"
 	"google.golang.org/grpc"
@@ -33,6 +34,8 @@ func StartGrpc() {
 				glog.Errorln("grpc panic", err)
 				return err
 			})),
+			grpc_opentracing.UnaryServerInterceptor(),
+			UnaryServerMetrics(),
 		)),
 	)
 
