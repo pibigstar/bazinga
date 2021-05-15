@@ -2,8 +2,10 @@ package resp
 
 import (
 	"github.com/gogf/gf/net/ghttp"
-	"github.com/gogf/gf/util/gconv"
-	"time"
+	"github.com/golang/glog"
+	"github.com/pibigstar/bazinga/internal/code"
+	"github.com/pibigstar/bazinga/utils/ctxkit"
+	"github.com/pibigstar/bazinga/utils/errx"
 )
 
 type Resp struct {
@@ -14,39 +16,32 @@ type Resp struct {
 	TraceId   string      `json:"traceId"`
 }
 
-func Success(r *ghttp.Request, data interface{}) *Resp {
+func Success(r *ghttp.Request, data interface{}) {
 	r.Context()
-	return &Resp{
+	resp := &Resp{
 		Code:      200,
 		Msg:       "OK",
 		Data:      data,
-		Timestamp: getTimestamp(r),
-		TraceId:   getTraceId(r),
+		Timestamp: ctxkit.GetTimestamp(r.Context()),
+		TraceId:   ctxkit.GetTraceId(r.Context()),
+	}
+	if err := r.Response.WriteJson(resp); err != nil {
+		glog.Errorln(err)
 	}
 }
 
-func Error(r *ghttp.Request, msg string, codes ...int) *Resp {
-	code := 500
-	if len(codes) > 0 {
-		code = codes[0]
+func Error(r *ghttp.Request, err error) {
+	errCode := code.Error_Internal.Code()
+	if e, ok := err.(errx.ErrX); ok {
+		errCode = e.Code()
 	}
-	return &Resp{
-		Code:      code,
-		Msg:       msg,
-		Data:      nil,
-		Timestamp: getTimestamp(r),
-		TraceId:   getTraceId(r),
+	resp := &Resp{
+		Code:      errCode,
+		Msg:       err.Error(),
+		Timestamp: ctxkit.GetTimestamp(r.Context()),
+		TraceId:   ctxkit.GetTraceId(r.Context()),
 	}
-}
-
-func getTraceId(r *ghttp.Request) string {
-	return gconv.String(r.Context().Value("traceId"))
-}
-
-func getTimestamp(r *ghttp.Request) float64 {
-	if t := r.Context().Value("timestamp"); t != nil {
-		f := time.Now().Unix() - gconv.Int64(t)
-		return float64(f) / 60
+	if err := r.Response.WriteJson(resp); err != nil {
+		glog.Errorln(err)
 	}
-	return 0
 }

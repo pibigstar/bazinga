@@ -1,37 +1,47 @@
 # HTTP Server
 [server]
-	Address         = ":80"
+	Address         = ":8080"
 	ServerAgent     = "bazinga"
-	LogPath         = "log/bazinga/server"
+	LogPath         = "log/server"
 	DumpRouterMap   = true
 	PProfEnabled    = true
-
 
 [grpc]
     host = "127.0.0.1"
     port = 9000
+
+# Logger.
+[logger]
+    Path        = "log"
+    Level       = "dev"
+    Stdout      = true
+
+# Database.
+[database]
+    type = "mysql"
+    link  = "root:123456@tcp(127.0.0.1:3306)/bazinga"
+    debug = true
+    # Database logger.
+    [database.logger]
+        Path   = "log/sql"
+        Level  = "all"
+        Stdout = true
+
+# Redis
+[redis]
+    host = "127.0.0.1"
+    port = 6379
+    db = 0
+    maxActive = 50
+    idleTimeout = 10000
 
 [trace]
     enable = true
     addr = "127.0.0.1:6831"
     filter = ["ico", "jpg"]
 
-# Logger.
-[logger]
-    Path        = "log/bazinga"
-    Level       = "DEV"
-    Stdout      = true
-
-# Database.
-[database]
-    link  = "mysql:root:123456@tcp(127.0.0.1:3306)/bazinga"
-    debug = true
-    # Database logger.
-    [database.logger]
-        Path   = "log/bazinga/sql"
-        Level  = "all"
-        Stdout = true
-
-# Redis
-[redis]
-    default = "127.0.0.1:6379,0"
+[rate]
+    apiRate = true
+    apiLimit = 100 # 每秒可接受100个请求
+    ipRate = true
+    ipLimit = 3 # 每个IP每秒最多访问3次

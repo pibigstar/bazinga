@@ -7,9 +7,6 @@ import (
 
 func init() {
 	setConfig()
-	//startPProf()
-
-	go StartGrpc()
 }
 
 func setConfig() {

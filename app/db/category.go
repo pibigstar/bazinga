@@ -1,5 +1,9 @@
 package db
 
+import (
+	"context"
+)
+
 var (
 	MWebsiteCategory WebsiteCategory
 )
@@ -22,16 +26,16 @@ func (c *WebsiteCategory) List() (results []*WebsiteCategory, err error) {
 	return results, err
 }
 
-func (c *WebsiteCategory) ListWebsites() (results []*WebsiteCategory, err error) {
-	err = db.Table(c.name()).Where("display = ?", true).Structs(&results)
+func (c *WebsiteCategory) ListWebsites(ctx context.Context) (results []*WebsiteCategory, err error) {
+	err = db.Table(c.name()).Ctx(ctx).Where("display = 1").Structs(&results)
 	var ids []int
 	for _, result := range results {
 		ids = append(ids, result.Id)
 	}
 
 	var websites []*Website
-	err = db.Table(MWebsite.name()).
-		Where("display = ? AND category in (?)", true, ids).
+	err = db.Ctx(ctx).Table(MWebsite.name()).
+		Where("display = 1 AND category in (?)", ids).
 		Structs(&websites)
 	for _, result := range results {
 		for _, website := range websites {

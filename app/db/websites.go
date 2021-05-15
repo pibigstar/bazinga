@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 	"github.com/gogf/gf/frame/g"
-	"github.com/pibigstar/bazinga/internal/util/seq"
+	"github.com/pibigstar/bazinga/utils/seq"
 	"time"
 )
 
